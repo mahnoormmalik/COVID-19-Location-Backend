@@ -1,0 +1,83 @@
+{% extends "index1.html" %}
+
+{% block title %} UI Tables {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+    
+<div class="row" style="height:500px;">
+    <div class="col-md-12">
+      <div class="card ">
+        <div class="card-header">
+          <h4 class="card-title">User Covid Status</h4>
+        </div>
+        <div class="card-body" >
+          <div class="table-responsive">
+            <table class="table tablesorter " id="">
+              <thead class=" text-primary">
+                <tr>
+                  <th>
+                    ID
+                  </th>
+                  <th>
+                    Age
+                  </th>
+                  <th>
+                    Risk of Severe Complications
+                  </th>
+                  <th>
+                    Covid-Status
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for profile in profiles %}
+                <tr>
+                  <td>
+                    {{ profile['id'] }}
+                  </td>
+                  <td>
+                    {{ profile['Age'] }}
+                  </td>
+                  <td>
+                    {{ profile['risk_score'] }}
+                  </td>
+                  {%if profile["Covid_status"] == "positive" %}
+                  <td style="color:#ff0000 !important">
+                    {{ profile['Covid_status'] }}
+                  </td>
+                  {%else%}
+                  <td style="color:#00ff00 !important">
+                    {{ profile['Covid_status'] }}
+                  </td>
+                  {%endif%}
+                  <td>
+                    {%if profile["Covid_status"] == "negative" %}
+                    
+                    <form method="post" action="/mark-covid-positive">
+                      <input type="hidden" name="id" value={{ profile["id"] }}></input>
+                      <input type="submit" value="Mark Postive" class="btn btn-fill btn-primary" />
+                    </form>
+                    {% else %}
+                    
+                    <form method="post" action="/fetch-contacts">
+                        <input type="hidden" name="id" value={{ profile["id"] }}></input>
+                        <input type="submit" value="Fetch contacts" class="btn btn-fill btn-primary" />
+                      </form>
+                      {%endif%}
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock content %}
+
+  <!-- Specific Page JS goes HERE  -->
+  {% block javascripts %}{% endblock javascripts %}

@@ -1,0 +1,88 @@
+{% extends "index1.html" %}
+
+{% block title %} UI Tables {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+    
+<div class="row" style="height:500px;">
+    <div class="col-md-12">
+      <div class="card ">
+        <div class="card-header">
+          <h4 class="card-title">Users affected by being in close contact with ID: {{user_id}}</h4>
+        </div>
+        <div class="card-body" >
+          <div class="table-responsive">
+            <table class="table tablesorter " id="">
+              <thead class=" text-primary">
+                <tr>
+                  <th>
+                    ID
+                  </th>
+                  <th>
+                    Age
+                  </th>
+                  <th>
+                    Risk of Severe Complications
+                  </th>
+                  <th>
+                    Vaccination effectiveness because of vaccination status (%)
+                  </th>
+                  <th>
+                    Covid-Status
+                  </th>
+                  <th>
+                    Number of Vaccines
+                  </th>
+                  <th>
+                    Vaccination Date
+                  </th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+                {% for profile in users_affected %}
+                <tr>
+                  <td>
+                    {{ profile['id'] }}
+                  </td>
+                  <td>
+                    {{ profile['Age'] }}
+                  </td>
+                  <td>
+                    {{ profile['risk_score'] }}
+                  </td>
+                  <td>
+                    {{ profile['vaccine_effectiveness'] }}
+                  </td>
+                  {%if profile["Covid_status"] == "positive" %}
+                  <td style="color:#ff0000 !important">
+                    {{ profile['Covid_status'] }}
+                  </td>
+                  {%else%}
+                  <td style="color:#00ff00 !important">
+                    {{ profile['Covid_status'] }}
+                  </td>
+                  <td>
+                    {{ profile['num_vaccines'] }}
+                  </td>
+                  <td>
+                    {{ profile['last_vaccination_date'] }}
+                  </td>
+                  
+                  {%endif%}
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock content %}
+
+  <!-- Specific Page JS goes HERE  -->
+  {% block javascripts %}{% endblock javascripts %}

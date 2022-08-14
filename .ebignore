@@ -1,0 +1,20 @@
+# Ignore everything
+*
+
+# Except  
+!static/
+!templates/
+!app.py
+!covid_tracer.py
+!main.py
+!models.py
+!proximityCalculator.py
+!Dockerrun.aws.json
+!.my_env
+!requirements.txt
+!Dockerfile
+
+# Ignore node_modules
+my_env
+venv
+win_env
